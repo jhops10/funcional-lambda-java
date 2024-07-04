@@ -4,6 +4,7 @@ import entities.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Program {
     public static void main(String[] args) {
@@ -11,11 +12,26 @@ public class Program {
         List<Product> list = new ArrayList<>();
 
         list.add(new Product("TV", 900.00));
-        list.add(new Product("Notebook", 1300.00));
+        list.add(new Product("Mouse", 50.00));
         list.add(new Product("Tablet", 450.00));
+        list.add(new Product("HD Case", 80.90));
 
-        list.sort((p1, p2) -> p1.getName().toLowerCase().compareTo(p2.getName().toLowerCase()));
+        //Reference Method com método estático.
+        //list.removeIf(Product::staticProductPredicate);
 
-        list.forEach(p -> System.out.println(p));
+        //Reference Method com método não estático.
+        //list.removeIf(Product::nonStaticProductPredicate);
+
+        //Expressão Lambda declarada.
+        //Predicate<Product> pred = product -> product.getPrice() >= 100.0;
+        //list.removeIf(pred);
+
+        //Expressão Lambda inline.
+        list.removeIf(product -> product.getPrice() >= 100.0);
+
+
+
+        list.forEach(product -> System.out.println(product.toString()));
+
     }
 }
