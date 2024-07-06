@@ -1,9 +1,11 @@
 package application;
 
 import entities.Product;
+import util.PriceUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Program {
@@ -16,19 +18,22 @@ public class Program {
         list.add(new Product("Tablet", 450.00));
         list.add(new Product("HD Case", 80.90));
 
-        //Reference Method com método estático.
-        //list.removeIf(Product::staticProductPredicate);
 
-        //Reference Method com método não estático.
-        //list.removeIf(Product::nonStaticProductPredicate);
+        //Implementação da Interface
+        //list.forEach(new PriceUpdate());
 
-        //Expressão Lambda declarada.
-        //Predicate<Product> pred = product -> product.getPrice() >= 100.0;
-        //list.removeIf(pred);
+        //Reference Method com método estático
+        //list.forEach(Product::staticPriceUpdate);
 
-        //Expressão Lambda inline.
-        list.removeIf(product -> product.getPrice() >= 100.0);
+        //Reference Method sem método estático
+        //list.forEach(Product::nonStaticPriceUpdate);
 
+         //Expressão Lambda declarada
+        //double factor = 1.1;
+        //Consumer<Product> cons = product -> product.setPrice(product.getPrice() * factor);
+
+        //Expressão Lambda inline
+        list.forEach(product -> product.setPrice(product.getPrice() * 1.1));
 
 
         list.forEach(product -> System.out.println(product.toString()));
