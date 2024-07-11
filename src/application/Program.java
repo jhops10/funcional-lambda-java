@@ -1,50 +1,46 @@
 package application;
 
-import entities.Employee;
-import entities.Product;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
 
 public class Program {
     public static void main(String[] args) {
 
-        Locale.setDefault(Locale.US);
-        Scanner sc = new Scanner(System.in);
+        List<Integer> numbers = new Random().ints(20, 1, 101).boxed().toList();
 
-        String path = "E:\\DEVELOPMENT\\Java\\Projetos\\in.txt";
 
-      try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        //Números Pares da Lista:
+        List<Integer> pairNumbers = numbers.stream().filter(num -> num % 2 == 0).toList();
 
-          List<Employee> list = new ArrayList<>();
+        //Multiplicar Números por 2:
+        List<Integer> x2 = numbers.stream().map(num -> num * 2).toList();
 
-          String line = br.readLine();
-          while (line != null) {
-              String[] fields = line.split(",");
-              list.add(new Employee(fields[0], fields[1], Double.parseDouble(fields[2])));
-              line = br.readLine();
-          }
+        //Ordenar Números:
+        List<Integer> orderedList = numbers.stream().sorted().toList();
 
-          System.out.print("Enter Salary:");
-          double salary = sc.nextDouble();
+        //Ordem Reversa:
+        List<Integer> reverseOrdered = numbers.stream().sorted(Comparator.reverseOrder()).toList();
 
-          System.out.println("Email of people whose salary is more than " + salary);
+        //Calcular Soma:
+        int summedList = numbers.stream().reduce(0, (x,y) -> (x + y));
 
-          Comparator<String> comp = (s1, s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
-          List<String> emails = list.stream().filter(emp -> emp.getSalary() > salary).map(emp -> emp.getEmail()).sorted(comp).toList();
-
-          emails.forEach(System.out::println);
-
-          double sum = list.stream().filter(emp -> emp.getName().charAt(0) == 'M').map(emp -> emp.getSalary()).reduce(0.0, (x,y) -> x + y);
-
-          System.out.println("Sum of salary of people whose name starts with 'M': " + sum);
-
-      } catch (IOException e) {
-          System.out.println("Error: " + e.getMessage());
-      }
+        //Imprimir Resultados:
+        System.out.println("Números Pares: ");
+        pairNumbers.forEach(System.out::println);
+        System.out.println("=========================");
+        System.out.println("Multiplicados por 2: ");
+        x2.forEach(System.out::println);
+        System.out.println("=========================");
+        System.out.println("Lista Ordenada: ");
+        orderedList.forEach(System.out::println);
+        System.out.println("=========================");
+        System.out.println("Ordem Reversa: ");
+        reverseOrdered.forEach(System.out::println);
+        System.out.println("=========================");
+        System.out.println("Soma Total: ");
+        System.out.println("Soma da Lista: " + summedList);
 
     }
 }
